@@ -1,6 +1,9 @@
+import MainComponent from "./components/MainComponent/MainComponent";
 
 const App = () => {
-  return <p>Hello</p>
+  return (
+    <MainComponent />
+  )
 };
 
 export default App;
