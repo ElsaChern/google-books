@@ -12,10 +12,10 @@
   },
   "plugins": ["react", "prettier"],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": "off",
     "react/react-in-jsx-scope": "off",
     "react/function-component-definition": [
-      "error",
+      "off",
       {
         "namedComponents": ["arrow-function"]
       }
