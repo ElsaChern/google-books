@@ -1,5 +1,7 @@
 /* eslint-disable */
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import fetchBooks from "../../../api/fetchBooks";
+import { useSelector } from "react-redux";
 import {
   BookWrapper,
   BookCard,
@@ -8,29 +10,33 @@ import {
   BookCardCategory,
   BookCardAuthor,
 } from "./styled";
-import fetchBooks from "../../../api/fetchBooks";
-import { useEffect } from "react";
 
 const Books = () => {
+  const searchData = useSelector((state) => state.search.search);
+  const categoryData = useSelector((state) => state.search.category);
+  const orderData = useSelector((state) => state.search.order);
+
   const [books, setBooks] = useState([]);
 
-  const getBooks = async () => {
-    const booksResult = await fetchBooks("JS");
-    setBooks(booksResult);
-  };
-
   useEffect(() => {
-    getBooks([]);
-  }, []);
+    const getBooks = async () => {
+      const booksResult = await fetchBooks(searchData, categoryData, orderData);
 
-  console.log(books);
+      setBooks(booksResult);
+    };
+    getBooks([]);
+  }, [searchData, categoryData, orderData]);
+
+  console.log(searchData);
+  console.log(categoryData);
+  console.log(orderData);
 
   return (
     <>
       <BookWrapper>
-        {books.map((book) => {
+        {books.map((book, id) => {
           return (
-            <BookCard key={book.id}>
+            <BookCard key={id}>
               <BookCardImg src={book.image}></BookCardImg>
               <BookCardCategory>{book.category}</BookCardCategory>
               <BookCardTitle>
