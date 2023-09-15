@@ -25,10 +25,14 @@ const Input = styled.input`
   border-radius: 3px;
 `;
 
-const SelectOption = styled.select`
+const Select = styled.select`
   width: 25%;
   background: white;
   border-radius: 3px;
+  padding-left: 10px;
+  font-weight: 100;
+  font-size: 14px;
+  line-height: 5px;
 
   @media only screen and (max-width: 600px) {
     width: 20%;
@@ -64,4 +68,4 @@ const Button = styled.button`
   margin-left: -95px;
 `;
 
-export { SearchDiv, Input, Text, Button, SelectOption };
+export { SearchDiv, Input, Text, Button, Select };
