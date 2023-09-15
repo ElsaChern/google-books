@@ -31,9 +31,6 @@ const fetchBooks = async (search, subject, orderBy, startIndex = 0) => {
     description: volumeInfo.description ? volumeInfo.description : "",
   }));
 
-  if (response.status !== 200) {
-    throw new Error(response.statusText);
-  }
   return mappedBooksResult;
 };
 
