@@ -19,20 +19,18 @@ const SearchDiv = styled.form`
 `;
 
 const Input = styled.input`
-  width: 90%;
+  width: 100%;
   padding: 10px;
+  border: 1px solid black;
   background: white;
-  border-radius: 3px;
+  border-radius: 5px;
 `;
 
 const Select = styled.select`
   width: 25%;
-  background: white;
-  border-radius: 3px;
-  padding-left: 10px;
-  font-weight: 100;
+  border-radius: 5px;
+  padding: 3px;
   font-size: 14px;
-  line-height: 5px;
 
   @media only screen and (max-width: 600px) {
     width: 20%;
@@ -45,9 +43,9 @@ const Select = styled.select`
 `;
 
 const Text = styled.p`
-  font-weight: 300;
+  font-weight: 200px;
   font-size: 20px;
-  line-height: 35px;
+  line-height: 25px;
   color: black;
   margin: 0;
 
@@ -62,10 +60,13 @@ const Text = styled.p`
   }
 `;
 
-const Button = styled.button`
-  background-color: inherit;
+const SearchButton = styled.button`
+  background-color: grey;
+  border-radius: 5px;
   border: none;
-  margin-left: -95px;
+  color: black;
+  margin-left: -110px;
+  cursor: pointer;
 `;
 
-export { SearchDiv, Input, Text, Button, Select };
+export { SearchDiv, Input, Text, SearchButton, Select };

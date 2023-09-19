@@ -20,14 +20,12 @@ const fetchBooks = async (search, subject, orderBy, startIndex = 0) => {
 
   const mappedBooksResult = books.map(({ id, volumeInfo }) => ({
     id,
-    image: volumeInfo.imageLinks
-      ? volumeInfo.imageLinks.thumbnail
-      : "Photo not found",
+    image: volumeInfo.imageLinks?.thumbnail,
     category: volumeInfo.categories
       ? volumeInfo.categories
       : "Category is not found",
     title: volumeInfo.title,
-    author: volumeInfo.authors ? volumeInfo.authors : "Author is not found",
+    author: volumeInfo.authors,
     description: volumeInfo.description ? volumeInfo.description : "",
   }));
 

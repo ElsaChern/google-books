@@ -1,12 +1,12 @@
 import MainDiv from "./styles";
 import Header from "../Header/Header";
-import BooksList from "../BooksList/BooksList";
+import Books from "../Books/index";
 
 const MainComponent = () => {
   return (
     <MainDiv>
       <Header />
-      <BooksList />
+      <Books />
     </MainDiv>
   );
 };

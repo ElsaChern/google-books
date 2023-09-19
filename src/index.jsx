@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
 import { Provider } from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom/client";

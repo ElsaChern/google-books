@@ -1,10 +1,11 @@
-/* eslint-disable */
-
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Input, SearchDiv, Select, Text } from "./styled";
-import { categorySelectOptions, sortSelectOptions } from "./constants";
-import { useEffect, useState } from "react";
 import { setSearchData } from "../../store/slices/searchSlice";
+import {
+  categorySelectOptions,
+  sortSelectOptions,
+} from "../../helpers/constants";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -35,10 +36,10 @@ const SearchBar = () => {
   };
 
   return (
-    <SearchDiv onSubmit={handleSubmit}>
+    <SearchDiv type="submit" onSubmit={handleSubmit}>
       <Input
         name="search"
-        placeholder="Search"
+        placeholder="Search..."
         value={values.search}
         onChange={handleChange}
       />
