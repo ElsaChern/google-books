@@ -1,7 +1,11 @@
-/* eslint-disable */
-import { useState, useEffect } from "react";
-import fetchBooks from "../../../api/fetchBooks";
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import fetchBooks from "../../api/fetchBooks";
+import emptyBook from "../../img/empty_book.jpeg";
+import {
+  authorFilter,
+  titleFilter,
+} from "../../helpers/BooksFunc/bookListFilters";
 import {
   BookWrapper,
   BookCard,
@@ -17,7 +21,7 @@ const Books = () => {
   const orderData = useSelector((state) => state.search.order);
 
   const [books, setBooks] = useState([]);
-  const [requestError, setRequestError] = useState(false);
+  const [requestError, setRequestError] = useState("");
 
   useEffect(() => {
     const getBooks = async () => {
@@ -29,8 +33,8 @@ const Books = () => {
         );
         setBooks(booksResult);
         setRequestError(false);
-      } catch {
-        setRequestError(true);
+      } catch (e) {
+        setRequestError(e.message);
         setBooks([]);
       }
     };
@@ -41,7 +45,7 @@ const Books = () => {
   }, [searchData, categoryData, orderData]);
 
   return (
-    <>
+    <div>
       {requestError ? (
         <p>Something went wrong. Try again later</p>
       ) : (
@@ -49,24 +53,21 @@ const Books = () => {
           {!books.length ? (
             <p>Enter some key word for searching</p>
           ) : (
-            books.map((book, id) => {
+            books.map((book) => {
               return (
-                <BookCard key={id}>
-                  <BookCardImg src={book.image}></BookCardImg>
+                <BookCard key={book.id}>
+                  <BookCardImg src={book.image ? book.image : emptyBook} />
                   <BookCardCategory>{book.category}</BookCardCategory>
-                  <BookCardTitle>
-                    {book.title.length > 30
-                      ? `${book.title.slice(0, 30)}...`
-                      : book.title}
-                  </BookCardTitle>
-                  <BookCardAuthor>{book.author}</BookCardAuthor>
+                  <BookCardTitle>{titleFilter(book.title)}</BookCardTitle>
+                  <BookCardAuthor>{authorFilter(book.author)}</BookCardAuthor>
                 </BookCard>
               );
             })
           )}
         </BookWrapper>
       )}
-    </>
+      {books.length > 0 && <button type="button">Show more</button>}
+    </div>
   );
 };
 

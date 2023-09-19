@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 const BookWrapper = styled.div`
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  justify-content: space-between;
+  margin-top: 15px;
 `;
 
 const BookCard = styled.li`

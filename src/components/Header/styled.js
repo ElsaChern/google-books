@@ -13,9 +13,9 @@ const BackgroundStyle = styled.div`
 const HeaderText = styled.p`
   text-align: center;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 46px;
-  padding-top: 20px;
+  padding: 20px;
   line-height: 55px;
   color: black;
   margin: 0;
