@@ -3,6 +3,7 @@ import styled from "styled-components";
 const SearchDiv = styled.form`
   display: flex;
   flex-wrap: wrap;
+  position: relative;
   width: 550px;
   gap: 20px;
   justify-content: space-around;
@@ -16,6 +17,13 @@ const SearchDiv = styled.form`
     width: 300px;
     gap: 10px;
   }
+`;
+
+const SearchIconContainer = styled.div`
+  position: absolute;
+  top: 3px;
+  right: 9px;
+  cursor: pointer;
 `;
 
 const Input = styled.input`
@@ -60,13 +68,11 @@ const Text = styled.p`
   }
 `;
 
-const SearchButton = styled.button`
-  background-color: grey;
-  border-radius: 5px;
-  border: none;
-  color: black;
-  margin-left: -110px;
-  cursor: pointer;
+const ErrorText = styled.p`
+  background-color: white;
+  position: absolute;
+  text-decoration: underline;
+  font-size: 12px;
 `;
 
-export { SearchDiv, Input, Text, SearchButton, Select };
+export { SearchDiv, Input, Text, SearchIconContainer, Select, ErrorText };
