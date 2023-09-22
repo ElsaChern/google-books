@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import fetchBooks from "../../api/fetchBooks";
@@ -8,8 +9,11 @@ import {
 } from "../../helpers/BooksFunc/bookListFilters";
 import {
   clearBooksData,
-  getMoreBooks,
-  setBooksData,
+  getMoreBooksPending,
+  getMoreBooksSuccess,
+  setBooksFailure,
+  setBooksPending,
+  setBooksSuccess,
 } from "../../store/slices/booksSlice";
 import {
   BookWrapper,
@@ -19,52 +23,48 @@ import {
   BookCardCategory,
   BookCardAuthor,
   ShowMoreBtn,
+  LoadingSVGWrapper,
 } from "./styled";
+import isLoadingLoupe from "../../img/isLoadingLoupe.gif";
 
 const Books = () => {
-  const searchData = useSelector((state) => state.search.search);
-  const categoryData = useSelector((state) => state.search.category);
-  const orderData = useSelector((state) => state.search.order);
-  const books = useSelector((state) => state.books.books);
-
+  const { search, category, order } = useSelector((state) => state.search);
+  const { books, error, isLoading, isLoadingButton } = useSelector(
+    (state) => state.books,
+  );
   const [startIndex, setStartIndex] = useState(0);
-  const [requestError, setRequestError] = useState("");
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getBooks = async () => {
+      dispatch(setBooksPending());
       dispatch(clearBooksData());
       try {
-        const booksResult = await fetchBooks(
-          searchData,
-          categoryData,
-          orderData,
-        );
-        dispatch(setBooksData(booksResult));
-        setRequestError(false);
+        const booksResult = await fetchBooks(search, category, order);
+        dispatch(setBooksSuccess(booksResult));
       } catch (e) {
-        setRequestError(e.message);
-        dispatch(clearBooksData());
+        dispatch(setBooksFailure());
       }
     };
 
-    if (searchData) {
+    if (search) {
       getBooks();
     }
-  }, [searchData, categoryData, orderData]);
+  }, [search, category, order]);
 
   const showMoreHandler = () => {
     setStartIndex((prevstate) => prevstate + 30);
     const getBooks = async () => {
+      dispatch(getMoreBooksPending());
       try {
         const booksResult = await fetchBooks(
-          searchData,
-          categoryData,
-          orderData,
+          search,
+          category,
+          order,
           startIndex,
         );
-        dispatch(getMoreBooks(booksResult));
+        dispatch(getMoreBooksSuccess(booksResult));
       } catch (e) {
         dispatch(clearBooksData());
       }
@@ -72,31 +72,39 @@ const Books = () => {
     getBooks();
   };
 
+  if (error) {
+    return <p>Something went wrong. Try again later</p>;
+  }
+
+  if (isLoading) {
+    return (
+      <LoadingSVGWrapper>
+        <img src={isLoadingLoupe} alt="Loading..." />
+      </LoadingSVGWrapper>
+    );
+  }
+
   return (
     <>
-      {requestError ? (
-        <p>Something went wrong. Try again later</p>
-      ) : (
-        <BookWrapper>
-          {!books.length ? (
-            <p>Enter some key word for searching</p>
-          ) : (
-            books.map((book) => {
-              return (
-                <BookCard key={book.id}>
-                  <BookCardImg src={book.image ? book.image : emptyBook} />
-                  <BookCardCategory>{book.category}</BookCardCategory>
-                  <BookCardTitle>{titleFilter(book.title)}</BookCardTitle>
-                  <BookCardAuthor>{authorFilter(book.author)}</BookCardAuthor>
-                </BookCard>
-              );
-            })
-          )}
-        </BookWrapper>
-      )}
+      <BookWrapper>
+        {!books.length ? (
+          <p>Enter some key word for searching</p>
+        ) : (
+          books.map((book) => {
+            return (
+              <BookCard key={book.id}>
+                <BookCardImg src={book.image ? book.image : emptyBook} />
+                <BookCardCategory>{book.category}</BookCardCategory>
+                <BookCardTitle>{titleFilter(book.title)}</BookCardTitle>
+                <BookCardAuthor>{authorFilter(book.author)}</BookCardAuthor>
+              </BookCard>
+            );
+          })
+        )}
+      </BookWrapper>
       {books.length > 0 && (
         <ShowMoreBtn onClick={showMoreHandler} type="button">
-          Show more
+          {isLoadingButton ? "Loading..." : "Show more"}
         </ShowMoreBtn>
       )}
     </>
