@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import fetchBooks from "../../api/fetchBooks";
 import emptyBook from "../../img/empty_book.jpeg";
@@ -7,35 +7,45 @@ import {
   titleFilter,
 } from "../../helpers/BooksFunc/bookListFilters";
 import {
+  clearBooksData,
+  getMoreBooks,
+  setBooksData,
+} from "../../store/slices/booksSlice";
+import {
   BookWrapper,
   BookCard,
   BookCardTitle,
   BookCardImg,
   BookCardCategory,
   BookCardAuthor,
+  ShowMoreBtn,
 } from "./styled";
 
 const Books = () => {
   const searchData = useSelector((state) => state.search.search);
   const categoryData = useSelector((state) => state.search.category);
   const orderData = useSelector((state) => state.search.order);
+  const books = useSelector((state) => state.books.books);
 
-  const [books, setBooks] = useState([]);
+  const [startIndex, setStartIndex] = useState(0);
   const [requestError, setRequestError] = useState("");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getBooks = async () => {
+      dispatch(clearBooksData());
       try {
         const booksResult = await fetchBooks(
           searchData,
           categoryData,
           orderData,
         );
-        setBooks(booksResult);
+        dispatch(setBooksData(booksResult));
         setRequestError(false);
       } catch (e) {
         setRequestError(e.message);
-        setBooks([]);
+        dispatch(clearBooksData());
       }
     };
 
@@ -44,8 +54,26 @@ const Books = () => {
     }
   }, [searchData, categoryData, orderData]);
 
+  const showMoreHandler = () => {
+    setStartIndex((prevstate) => prevstate + 30);
+    const getBooks = async () => {
+      try {
+        const booksResult = await fetchBooks(
+          searchData,
+          categoryData,
+          orderData,
+          startIndex,
+        );
+        dispatch(getMoreBooks(booksResult));
+      } catch (e) {
+        dispatch(clearBooksData());
+      }
+    };
+    getBooks();
+  };
+
   return (
-    <div>
+    <>
       {requestError ? (
         <p>Something went wrong. Try again later</p>
       ) : (
@@ -66,8 +94,12 @@ const Books = () => {
           )}
         </BookWrapper>
       )}
-      {books.length > 0 && <button type="button">Show more</button>}
-    </div>
+      {books.length > 0 && (
+        <ShowMoreBtn onClick={showMoreHandler} type="button">
+          Show more
+        </ShowMoreBtn>
+      )}
+    </>
   );
 };
 

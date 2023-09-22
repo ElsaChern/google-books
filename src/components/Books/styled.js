@@ -55,6 +55,21 @@ const BookCardAuthor = styled.p`
   margin: 0;
 `;
 
+const ShowMoreBtn = styled.button`
+  display: block;
+  width: 200px;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 20px auto;
+  border: double;
+  box-shadow: rgba(51, 51, 51, 0.15) 10px 10px 6px;
+  color: black;
+  font-size: 15px;
+  margin: 20px auto;
+  background-color: white;
+  cursor: pointer;
+`;
+
 export {
   BookWrapper,
   BookCardCategory,
@@ -62,4 +77,5 @@ export {
   BookCardImg,
   BookCardAuthor,
   BookCardTitle,
+  ShowMoreBtn,
 };

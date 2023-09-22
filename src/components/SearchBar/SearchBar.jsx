@@ -35,7 +35,7 @@ const SearchBar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (values.search.trim().length === 0) {
-      setError("Field cannot be empty");
+      setError("Search field cannot be empty");
       return;
     }
 
