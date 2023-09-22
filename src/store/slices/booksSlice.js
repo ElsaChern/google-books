@@ -6,21 +6,42 @@ const booksSlice = createSlice({
   name: "books",
   initialState: {
     books: [],
+    error: false,
+    isLoading: false,
+    isLoadingButton: false,
   },
 
   reducers: {
-    setBooksData(state, action) {
+    setBooksPending(state) {
+      state.isLoading = true;
+    },
+    setBooksSuccess(state, action) {
+      state.isLoading = false;
       state.books = action.payload;
+    },
+    setBooksFailure(state) {
+      state.isLoading = false;
+      state.error = true;
     },
     clearBooksData(state) {
       state.books = [];
     },
-    getMoreBooks(state, action) {
+    getMoreBooksPending(state) {
+      state.isLoadingButton = true;
+    },
+    getMoreBooksSuccess(state, action) {
+      state.isLoadingButton = false;
       state.books = [...state.books, ...action.payload];
     },
   },
 });
 
-export const { setBooksData, clearBooksData, getMoreBooks } =
-  booksSlice.actions;
+export const {
+  setBooksPending,
+  setBooksSuccess,
+  setBooksFailure,
+  clearBooksData,
+  getMoreBooksPending,
+  getMoreBooksSuccess,
+} = booksSlice.actions;
 export default booksSlice.reducer;

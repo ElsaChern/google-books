@@ -70,6 +70,12 @@ const ShowMoreBtn = styled.button`
   cursor: pointer;
 `;
 
+const LoadingSVGWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 50px 100px;
+`;
+
 export {
   BookWrapper,
   BookCardCategory,
@@ -78,4 +84,5 @@ export {
   BookCardAuthor,
   BookCardTitle,
   ShowMoreBtn,
+  LoadingSVGWrapper,
 };
