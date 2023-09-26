@@ -1,8 +1,9 @@
-/* eslint-disable */
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import fetchBooks from "../../api/fetchBooks";
 import emptyBook from "../../img/empty_book.jpeg";
+import isLoadingLoupe from "../../img/isLoadingLoupe.gif";
 import {
   authorFilter,
   titleFilter,
@@ -15,6 +16,7 @@ import {
   setBooksPending,
   setBooksSuccess,
 } from "../../store/slices/booksSlice";
+import MainComponent from "../MainComponent/index";
 import {
   BookWrapper,
   BookCard,
@@ -25,7 +27,6 @@ import {
   ShowMoreBtn,
   LoadingSVGWrapper,
 } from "./styled";
-import isLoadingLoupe from "../../img/isLoadingLoupe.gif";
 
 const Books = () => {
   const { search, category, order } = useSelector((state) => state.search);
@@ -88,12 +89,14 @@ const Books = () => {
     <>
       <BookWrapper>
         {!books.length ? (
-          <p>Enter some key word for searching</p>
+          <MainComponent />
         ) : (
           books.map((book) => {
             return (
               <BookCard key={book.id}>
-                <BookCardImg src={book.image ? book.image : emptyBook} />
+                <Link to={`/books/${book.id}`}>
+                  <BookCardImg src={book.image ? book.image : emptyBook} />
+                </Link>
                 <BookCardCategory>{book.category}</BookCardCategory>
                 <BookCardTitle>{titleFilter(book.title)}</BookCardTitle>
                 <BookCardAuthor>{authorFilter(book.author)}</BookCardAuthor>

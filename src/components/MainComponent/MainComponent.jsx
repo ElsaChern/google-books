@@ -1,12 +1,9 @@
-import MainDiv from "./styles";
-import Header from "../Header/Header";
-import Books from "../Books/index";
+import { MainDiv, MainText } from "./styles";
 
 const MainComponent = () => {
   return (
     <MainDiv>
-      <Header />
-      <Books />
+      <MainText>Enter some key word for searching</MainText>
     </MainDiv>
   );
 };
