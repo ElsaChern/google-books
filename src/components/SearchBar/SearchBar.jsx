@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   ErrorText,
   Input,
@@ -17,6 +18,7 @@ import {
 
 const SearchBar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [error, setError] = useState("");
   const [values, setValues] = useState({
@@ -48,6 +50,7 @@ const SearchBar = () => {
         order: values.order,
       }),
     );
+    navigate("books/");
   };
 
   return (
