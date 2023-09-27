@@ -4,7 +4,7 @@ const apiKey = process.env.REACT_APP_BOOKS_API_KEY;
 
 const searchUrl = "/volumes";
 
-const fetchBooks = async (search, subject, orderBy, startIndex) => {
+const fetchBooks = async (search, subject, orderBy, startIndex = 0) => {
   const maxResults = 30;
   const query = subject === "" ? search : `${search}+${subject}`;
   const params = {

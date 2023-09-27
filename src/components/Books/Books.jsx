@@ -7,7 +7,7 @@ import isLoadingLoupe from "../../img/isLoadingLoupe.gif";
 import {
   authorFilter,
   titleFilter,
-} from "../../helpers/BooksFunc/bookListFilters";
+} from "../../helpers/BooksFilters/bookListFilters";
 import {
   clearBooksData,
   getMoreBooksPending,
@@ -61,7 +61,9 @@ const Books = () => {
   }, [search, category, order]);
 
   const showMoreHandler = () => {
-    setStartIndex((prevstate) => prevstate + 30);
+    const nextIndex = startIndex + 30;
+    setStartIndex(nextIndex);
+
     const getBooks = async () => {
       dispatch(getMoreBooksPending());
       try {
@@ -69,7 +71,7 @@ const Books = () => {
           search,
           category,
           order,
-          startIndex,
+          nextIndex,
         );
         dispatch(getMoreBooksSuccess(booksResult.mappedBooksResult));
       } catch (e) {
