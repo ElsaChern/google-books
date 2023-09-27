@@ -15,6 +15,7 @@ import {
   setBooksFailure,
   setBooksPending,
   setBooksSuccess,
+  setTotalItems,
 } from "../../store/slices/booksSlice";
 import MainComponent from "../MainComponent/index";
 import {
@@ -26,11 +27,12 @@ import {
   BookCardAuthor,
   ShowMoreBtn,
   LoadingSVGWrapper,
+  TotalBooksCount,
 } from "./styled";
 
 const Books = () => {
   const { search, category, order } = useSelector((state) => state.search);
-  const { books, error, isLoading, isLoadingButton } = useSelector(
+  const { books, totalItems, error, isLoading, isLoadingButton } = useSelector(
     (state) => state.books,
   );
   const [startIndex, setStartIndex] = useState(0);
@@ -43,7 +45,10 @@ const Books = () => {
       dispatch(clearBooksData());
       try {
         const booksResult = await fetchBooks(search, category, order);
-        dispatch(setBooksSuccess(booksResult));
+        const totalCount = booksResult.totalItemsCount;
+        const booksList = booksResult.mappedBooksResult;
+        dispatch(setBooksSuccess(booksList));
+        dispatch(setTotalItems(totalCount));
       } catch (e) {
         dispatch(setBooksFailure());
       }
@@ -65,7 +70,7 @@ const Books = () => {
           order,
           startIndex,
         );
-        dispatch(getMoreBooksSuccess(booksResult));
+        dispatch(getMoreBooksSuccess(booksResult.mappedBooksResult));
       } catch (e) {
         dispatch(clearBooksData());
       }
@@ -87,8 +92,18 @@ const Books = () => {
 
   return (
     <>
+      {books.length ? (
+        <TotalBooksCount>Found {totalItems} results</TotalBooksCount>
+      ) : (
+        ""
+      )}
+      {search && !books.length ? (
+        <TotalBooksCount>Found {totalItems} result</TotalBooksCount>
+      ) : (
+        ""
+      )}
       <BookWrapper>
-        {!books.length ? (
+        {!books.length && !search ? (
           <MainComponent />
         ) : (
           books.map((book) => {

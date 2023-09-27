@@ -18,6 +18,7 @@ const fetchBooks = async (search, subject, orderBy, startIndex) => {
   const response = await apiInstance.get(searchUrl, { params });
   const books = response?.data?.items || [];
 
+  const totalItemsCount = response?.data?.totalItems;
   const mappedBooksResult = books.map(({ id, volumeInfo }) => ({
     id,
     image: volumeInfo.imageLinks?.thumbnail,
@@ -29,7 +30,7 @@ const fetchBooks = async (search, subject, orderBy, startIndex) => {
     description: volumeInfo.description ? volumeInfo.description : "",
   }));
 
-  return mappedBooksResult;
+  return { totalItemsCount, mappedBooksResult };
 };
 
 export default fetchBooks;

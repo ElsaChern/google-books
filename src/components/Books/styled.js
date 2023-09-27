@@ -76,6 +76,12 @@ const LoadingSVGWrapper = styled.div`
   margin: 50px 100px;
 `;
 
+const TotalBooksCount = styled.p`
+  text-align: center;
+  font-size: 18px;
+  font-weight: 300;
+`;
+
 export {
   BookWrapper,
   BookCardCategory,
@@ -85,4 +91,5 @@ export {
   BookCardTitle,
   ShowMoreBtn,
   LoadingSVGWrapper,
+  TotalBooksCount,
 };
