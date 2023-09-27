@@ -6,6 +6,7 @@ const booksSlice = createSlice({
   name: "books",
   initialState: {
     books: [],
+    totalItems: 0,
     error: false,
     isLoading: false,
     isLoadingButton: false,
@@ -18,6 +19,9 @@ const booksSlice = createSlice({
     setBooksSuccess(state, action) {
       state.isLoading = false;
       state.books = action.payload;
+    },
+    setTotalItems(state, action) {
+      state.totalItems = action.payload;
     },
     setBooksFailure(state) {
       state.isLoading = false;
@@ -39,6 +43,7 @@ const booksSlice = createSlice({
 export const {
   setBooksPending,
   setBooksSuccess,
+  setTotalItems,
   setBooksFailure,
   clearBooksData,
   getMoreBooksPending,
