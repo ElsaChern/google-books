@@ -16,12 +16,12 @@ const booksSlice = createSlice({
     setBooksPending(state) {
       state.isLoading = true;
     },
+    setTotalItems(state, action) {
+      state.totalItems = action.payload;
+    },
     setBooksSuccess(state, action) {
       state.isLoading = false;
       state.books = action.payload;
-    },
-    setTotalItems(state, action) {
-      state.totalItems = action.payload;
     },
     setBooksFailure(state) {
       state.isLoading = false;

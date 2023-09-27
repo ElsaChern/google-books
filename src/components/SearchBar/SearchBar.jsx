@@ -45,11 +45,12 @@ const SearchBar = () => {
 
     dispatch(
       setSearchData({
-        search: values.search,
+        search: values.search.trim(),
         category: values.category,
         order: values.order,
       }),
     );
+    setValues({ search: values.search.trim() });
     navigate("books/");
   };
 
