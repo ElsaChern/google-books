@@ -29,6 +29,7 @@ import {
   LoadingSVGWrapper,
   TotalBooksCount,
 } from "./styled";
+import UpBtn from "../../helpers/UI/UpBtn";
 
 const Books = () => {
   const { search, category, order } = useSelector((state) => state.search);
@@ -121,9 +122,12 @@ const Books = () => {
         )}
       </BookWrapper>
       {books.length > 0 && (
-        <ShowMoreBtn onClick={showMoreHandler} type="button">
-          {isLoadingButton ? "Loading..." : "Show more"}
-        </ShowMoreBtn>
+        <>
+          <UpBtn />
+          <ShowMoreBtn onClick={showMoreHandler} type="button">
+            {isLoadingButton ? "Loading..." : "Show more"}
+          </ShowMoreBtn>
+        </>
       )}
     </>
   );
