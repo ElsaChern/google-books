@@ -30,6 +30,7 @@ import {
   TotalBooksCount,
 } from "./styled";
 import UpBtn from "../../helpers/UI/UpBtn";
+import ErrorPage from "../ErrorPage/ErrorPage";
 
 const Books = () => {
   const { search, category, order } = useSelector((state) => state.search);
@@ -82,7 +83,7 @@ const Books = () => {
   };
 
   if (error) {
-    return <p>Something went wrong. Try again later</p>;
+    return <ErrorPage />;
   }
 
   if (isLoading) {
