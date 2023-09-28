@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import emptyBook from "../../../img/empty_book.jpeg";
 import {
   BookAuthor,
   BookCategory,
@@ -26,10 +27,10 @@ const Book = () => {
   }, [books]);
 
   const authors = currentBook?.author;
-  const image = currentBook?.image;
+  const image = currentBook?.image ? currentBook.image : emptyBook;
   const title = currentBook?.title;
   const category = currentBook?.category;
-  const description = currentBook?.description;
+  const description = currentBook?.description ? currentBook?.description : "";
 
   const goBackHandle = () => {
     navigate(`/books`);

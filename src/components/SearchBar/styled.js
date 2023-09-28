@@ -69,10 +69,10 @@ const Text = styled.p`
 `;
 
 const ErrorText = styled.p`
-  background-color: white;
   position: absolute;
+  color: red;
   text-decoration: underline;
-  font-size: 12px;
+  font-size: 14px;
 `;
 
 export { SearchDiv, Input, Text, SearchIconContainer, Select, ErrorText };

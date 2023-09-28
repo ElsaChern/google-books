@@ -6,7 +6,7 @@ const MainDiv = styled.div`
 
 const MainText = styled.p`
   text-align: center;
-  margin: 40px;
+  margin: 20px;
   font-size: 18px;
 }
 `;
