@@ -4,8 +4,12 @@ import { useState, useEffect } from "react";
 import fetchBooks from "../../api/fetchBooks";
 import emptyBook from "../../img/empty_book.jpeg";
 import isLoadingLoupe from "../../img/isLoadingLoupe.gif";
+import UpBtn from "../../helpers/UI/UpBtn";
+import ErrorPage from "../ErrorPage/ErrorPage";
+import MainComponent from "../MainComponent/index";
 import {
   authorFilter,
+  categoryFilter,
   titleFilter,
 } from "../../helpers/BooksFilters/bookListFilters";
 import {
@@ -17,7 +21,6 @@ import {
   setBooksSuccess,
   setTotalItems,
 } from "../../store/slices/booksSlice";
-import MainComponent from "../MainComponent/index";
 import {
   BookWrapper,
   BookCard,
@@ -29,8 +32,6 @@ import {
   LoadingSVGWrapper,
   TotalBooksCount,
 } from "./styled";
-import UpBtn from "../../helpers/UI/UpBtn";
-import ErrorPage from "../ErrorPage/ErrorPage";
 
 const Books = () => {
   const { search, category, order } = useSelector((state) => state.search);
@@ -96,13 +97,8 @@ const Books = () => {
 
   return (
     <>
-      {books.length ? (
+      {books.length || (search && !books.length) ? (
         <TotalBooksCount>Found {totalItems} results</TotalBooksCount>
-      ) : (
-        ""
-      )}
-      {search && !books.length ? (
-        <TotalBooksCount>Found {totalItems} result</TotalBooksCount>
       ) : (
         ""
       )}
@@ -116,7 +112,9 @@ const Books = () => {
                 <Link to={`/books/${book.id}`}>
                   <BookCardImg src={book.image ? book.image : emptyBook} />
                 </Link>
-                <BookCardCategory>{book.category}</BookCardCategory>
+                <BookCardCategory>
+                  {categoryFilter(book.category)}
+                </BookCardCategory>
                 <BookCardTitle>{titleFilter(book.title)}</BookCardTitle>
                 <BookCardAuthor>{authorFilter(book.author)}</BookCardAuthor>
               </BookCard>

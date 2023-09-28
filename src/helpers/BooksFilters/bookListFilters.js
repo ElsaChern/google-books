@@ -15,4 +15,11 @@ const titleFilter = (bookTitle) => {
   return bookTitle;
 };
 
-export { authorFilter, titleFilter };
+const categoryFilter = (bookCategory) => {
+  if (bookCategory === undefined) {
+    return `Category is not found`;
+  }
+  return bookCategory;
+};
+
+export { authorFilter, titleFilter, categoryFilter };

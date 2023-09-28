@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setSearchData } from "../../store/slices/searchSlice";
+import search from "../../img/search.png";
 import {
   ErrorText,
   Input,
@@ -9,8 +11,6 @@ import {
   Select,
   Text,
 } from "./styled";
-import { setSearchData } from "../../store/slices/searchSlice";
-import search from "../../img/search.png";
 import {
   categorySelectOptions,
   sortSelectOptions,
@@ -62,7 +62,7 @@ const SearchBar = () => {
         value={values.search}
         onChange={handleChange}
       />
-      {error && <ErrorText style={{ color: "red" }}>{error}</ErrorText>}
+      {error && <ErrorText>{error}</ErrorText>}
       <SearchIconContainer src={search} onClick={handleSubmit}>
         <img src={search} alt="Search" width={30} height={30} />
       </SearchIconContainer>
