@@ -33,7 +33,7 @@ const Book = () => {
   const description = currentBook?.description ? currentBook?.description : "";
 
   const goBackHandle = () => {
-    navigate(`/books`);
+    navigate(-1);
   };
 
   return (

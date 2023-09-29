@@ -13,7 +13,7 @@ const SearchDiv = styled.form`
     width: 400px;
   }
 
-  @media only screen and (max-width: 400px) {
+  @media only screen and (max-width: 430px) {
     width: 300px;
     gap: 10px;
   }
@@ -41,12 +41,7 @@ const Select = styled.select`
   font-size: 14px;
 
   @media only screen and (max-width: 600px) {
-    width: 20%;
-  }
-
-  @media only screen and (max-width: 400px) {
-    width: 50%;
-    height: 20%;
+    width: 70%;
   }
 `;
 

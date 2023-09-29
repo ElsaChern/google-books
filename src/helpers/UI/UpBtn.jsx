@@ -1,6 +1,6 @@
 import { useState } from "react";
 import iconUp from "../../img/icon-up.png";
-import UpButton from "./styled";
+import { UpBtnImg, UpButton } from "./styled";
 
 const UpBtn = () => {
   const [visible, setVisible] = useState(false);
@@ -25,12 +25,10 @@ const UpBtn = () => {
 
   return (
     <UpButton onClick={scrollToTop}>
-      <img
+      <UpBtnImg
         style={{ display: visible ? "inline" : "none" }}
         src={iconUp}
         alt="iconUp"
-        width={80}
-        height={80}
       />
     </UpButton>
   );

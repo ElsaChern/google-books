@@ -2,6 +2,9 @@ const authorFilter = (arrAuthors) => {
   if (arrAuthors?.length > 1) {
     return `${arrAuthors[0]} and others...`;
   }
+  if (arrAuthors?.join().length > 30) {
+    return `${arrAuthors.join().slice(0, 35)}...`;
+  }
   if (arrAuthors === undefined) {
     return `Author is not found`;
   }
