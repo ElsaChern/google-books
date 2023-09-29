@@ -8,6 +8,10 @@ const BackgroundStyle = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
+
+  @media only screen and (max-width: 600px) {
+    height: 250px;
+  }
 `;
 
 const HeaderText = styled.p`

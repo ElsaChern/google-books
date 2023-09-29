@@ -26,4 +26,14 @@ const UpButton = styled.div`
   }
 `;
 
-export default UpButton;
+const UpBtnImg = styled.img`
+  width: 80px;
+  height: 80px;
+
+  @media only screen and (max-width: 400px) {
+    width: 60px;
+    height: 60px;
+  }
+`;
+
+export { UpButton, UpBtnImg };
